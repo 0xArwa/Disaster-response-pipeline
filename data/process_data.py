@@ -27,6 +27,8 @@ def load_data(messages_filepath, categories_filepath):
     #merging the two datasets
     df = messages.merge(categories, on = 'id')
     
+    #for debugging
+    #print(df.head())
     return df
 
 
@@ -63,7 +65,7 @@ def clean_data(df):
     #loop through each column
     for column in categories:
         # set each value to be the last character of the string
-        categories[column] = categories[column].astype(np.str)
+        categories[column] = categories[column].astype(str)
         categories[column] = categories[column].map(lastString)
     
         # convert column from string to numeric
@@ -71,12 +73,11 @@ def clean_data(df):
 
     # drop the original (uncleaned) categories column from `df`
     del df['categories']
-
     # concatenate the original dataframe with the new `categories` dataframe
     df2 = pd.concat([df, categories], axis=1)
-
+ 
     #removing duplicates
-    df2 = df2.drop_duplicates(inplace=True)
+    df2 = df2.drop_duplicates()
 
     return df2
 
