@@ -6,8 +6,19 @@ from sqlalchemy import create_engine
 
 def load_data(messages_filepath, categories_filepath):
     """
+    Load messages and categories data from CSV files and merge them into a single DataFrame.
     
-    
+    Parameters
+    ----------
+    messages_filepath : str
+        Filepath of the messages CSV file.
+    categories_filepath : str
+        Filepath of the categories CSV file.
+        
+    Returns
+    -------
+    df : pandas DataFrame
+        Merged DataFrame containing messages and categories data.
     """
     #load the data into two variables
     messages = pd.read_csv(messages_filepath)
@@ -15,7 +26,7 @@ def load_data(messages_filepath, categories_filepath):
     
     #merging the two datasets
     df = messages.merge(categories, on = 'id')
-
+    
     return df
 
 
@@ -26,8 +37,18 @@ def lastString(value):
 
 def clean_data(df):
     """
+    Clean the merged DataFrame by splitting the 'categories' column into individual category columns,
+    converting the values to binary, and removing duplicates.
     
-    
+    Parameters
+    ----------
+    df : pandas DataFrame
+        Merged DataFrame containing messages and categories data.
+        
+    Returns
+    -------
+    df2 : pandas DataFrame
+        Cleaned DataFrame with individual category columns and duplicates removed.
     """
     # create a dataframe of the 36 individual category columns
     categories = df['categories'].str.split(';', expand=True)
@@ -55,21 +76,33 @@ def clean_data(df):
     df2 = pd.concat([df, categories], axis=1)
 
     #removing duplicates
-    df2 = df2.drop_duplicates()
+    df2 = df2.drop_duplicates(inplace=True)
 
     return df2
 
 
 def save_data(df, database_filename):
     """
+    Save the cleaned DataFrame to a SQLite database.
     
-    
+    Parameters
+    ----------
+    df : pandas DataFrame
+        Cleaned DataFrame containing messages and categories data.
+    database_filename : str
+        Filepath of the SQLite database file.
     """
-    engine = create_engine(database_filename)
-    df.to_sql('Responses', engine, index=False)
+    engine = create_engine(f'sqlite:///{database_filename}')
+    df.to_sql('Responses', engine, index=False, if_exists='replace')
 
 
 def main():
+    """
+
+    Load, clean, and save messages 
+    and categories data from CSV files to a SQLite database.
+
+    """
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
