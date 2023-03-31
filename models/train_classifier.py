@@ -5,7 +5,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import nltk
-
+nltk.download(['punkt', 'stopwords', 'wordnet', 'omw-1.4'])
 from sqlalchemy import create_engine
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -169,4 +169,3 @@ def main():
 if __name__ == '__main__':
     main()
 
-nltk.download(['punkt', 'stopwords', 'wordnet', 'omw-1.4'])
