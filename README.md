@@ -15,16 +15,17 @@ This reposiroty contains all files for Disaster Response Pipeline. There are 3 s
 In the fisrt section (ETL pipeline) the data was prepared and merged and duplicates were removed then it was loaded in sql format. 
 After that, ML pipeline was prepared which involved cleaning data, tokenaization, model selection and training, building a pipeline, then saving the trained model. Finally, to visulaze the daataset I've used the template provided by udacity to create graph using Plotly and to to classify messages based on the model I trained. 
 
-Sample tests of the project: 
+<h3> Sample tests of the project: </h3>
 
-Classifying a message
+<h4> Classifying a message </h4>
 
 
 
 ![sample 1](https://github.com/0xArwa/Disaster-response-pipeline/blob/main/images/36%20Disasters.png)
 
 
-Graphs 
+<h4> Graphs </h4>
+
 ![sample 2](https://github.com/0xArwa/Disaster-response-pipeline/blob/main/images/00%20Disasters.png)
 ![sample 3](https://github.com/0xArwa/Disaster-response-pipeline/blob/main/images/14%20Disasters.png)
 
