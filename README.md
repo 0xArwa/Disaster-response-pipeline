@@ -69,6 +69,7 @@ The files are organized in the follwoing structure:
     |- DisastorResponse.db # database
     models
     |- train_classifier.py #ML pipeline
+    |- ML-pipeline-preparation.ipynb #original notebook
     Images
     |- Images used for this README file
     README.md
