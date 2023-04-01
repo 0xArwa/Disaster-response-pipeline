@@ -17,7 +17,17 @@ After that, ML pipeline was prepared which involved cleaning data, tokenaization
 
 Sample tests of the project: 
 
+Classifying a message
+
+
+
+![sample 1](https://github.com/0xArwa/Disaster-response-pipeline/blob/main/images/36%20Disasters.png)
 -- picture here -- 
+
+Graphs 
+![sample 2](https://github.com/0xArwa/Disaster-response-pipeline/blob/main/images/00%20Disasters.png)
+![sample 3](https://github.com/0xArwa/Disaster-response-pipeline/blob/main/images/14%20Disasters.png)
+
 
 <a id='2'></a>
 ## Installation 
