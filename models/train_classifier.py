@@ -7,13 +7,13 @@ import pandas as pd
 import nltk
 nltk.download(['punkt', 'stopwords', 'wordnet', 'omw-1.4'])
 from sqlalchemy import create_engine
+from sqlalchemy import text
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.wordnet import WordNetLemmatizer
 from sklearn.pipeline import Pipeline
 from sklearn.multioutput import MultiOutputClassifier
-from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import classification_report, accuracy_score
 from sklearn.model_selection import GridSearchCV, train_test_split
@@ -36,7 +36,8 @@ def load_data(database_filepath):
     """
     # load data from database
     conn = create_engine(f'sqlite:///{database_filepath}')
-    df = pd.read_sql('SELECT * FROM Responses', conn)
+    query = text("""SELECT * FROM Responses""")
+    df = pd.read_sql(query, conn.connect())
 
     #splitting labels
     X = df['message'] 
@@ -67,10 +68,8 @@ def tokenize(text):
     stop_words = stopwords.words('english') 
     #remove all stop words
     new_text = [x for x in words if x not in stop_words]
-    #stemming
-    stemmed = [PorterStemmer().stem(x) for x in new_text]
     #lemming
-    lemmed = [WordNetLemmatizer().lemmatize(x) for x in stemmed]
+    lemmed = [WordNetLemmatizer().lemmatize(x) for x in new_text]
     return lemmed
 
 
