@@ -1,14 +1,31 @@
 # Disaster Response Pipeline Project
 
-### Instructions:
-1. Run the following commands in the project's root directory to set up your database and model.
+## Table of Contents
+- <a href="#1"> Description </a>
+- <a href="#2"> Installation </a>
+- <a href="#3"> Licensing, Authors, Acknowledgements </a>
 
-    - To run ETL pipeline that cleans data and stores in database
-        `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
-    - To run ML pipeline that trains classifier and saves
-        `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+<a id='1'></a>
+## Description
+This reposiroty contains all files for Disaster Response Pipeline. There are 3 sections for building this project:
+- ETL Pipeline
+- ML pipeline 
+- Web application
 
-2. Run the following command in the app's directory to run your web app.
-    `python run.py`
+In the fisrt section (ETL pipeline) the data was prepared and merged and duplicates were removed then it was loaded in sql format. 
+After that, ML pipeline was prepared which involved cleaning data, tokenaization, model selection and training, building a pipeline, then saving the trained model. Finally, to visulaze the daataset I've used the template provided by udacity to create graph using Plotly and to to classify messages based on the model I trained. 
 
-3. Go to http://0.0.0.0:3001/
+Sample tests of the project: 
+
+-- picture here -- 
+
+<a id='2'></a>
+## Installation 
+You can run this project on your local machine through running the files in this order, process_data.py -> train_classifier.py -> run.py
+
+
+
+<a id='3'></a>
+## Licensing, Authors, Acknowledgements
+
+The dataset belongs to Figure 8 and the project templates were provided by Udacity. 
