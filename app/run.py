@@ -8,6 +8,7 @@ from nltk.tokenize import word_tokenize
 from flask import Flask
 from flask import render_template, request, jsonify
 from plotly.graph_objs import Bar
+from plotly.graph_objs import Pie
 import joblib
 from sqlalchemy import create_engine
 
@@ -26,11 +27,11 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/responsesDataset.db')
-df = pd.read_sql_table('Responses', engine)
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
+df = pd.read_sql_table('Responses', engine.connect())
 
 # load model
-model = joblib.load("../models/KNN_model.pkl")
+model = joblib.load("../models/classifier.pkl")
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -39,12 +40,26 @@ model = joblib.load("../models/KNN_model.pkl")
 def index():
     
     # extract data needed for visuals
-    # TODO: Below is an example - modify to extract data for your own visuals
+
+    #data for chart 1
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
-    
+
+
+    #data for chart 2
+    categories = df.iloc[:, 4:]
+    cate_name = df.iloc[:, 4:].columns
+    cate_sum = [categories[x].sum() for x in cate_name ]
+
+
+    #data for chart 3
+    natural_dis = [df['floods-0'].sum(),
+                   df['storm-0'].sum(), 
+                   df['earthquake-0'].sum()]
+    dis_names = ['Floods', 'Storm', 'Earthquake']
+
     # create visuals
-    # TODO: Below is an example - modify to create your own visuals
+ 
     graphs = [
         {
             'data': [
@@ -61,6 +76,34 @@ def index():
                 },
                 'xaxis': {
                     'title': "Genre"
+                }
+            }
+        },{
+            'data': [
+                Pie(
+                    labels=cate_name,
+                    values=cate_sum
+                )
+            ],
+
+            'layout': {
+                'title': 'Categories of Messages',
+            }
+        },{
+            'data': [
+                Bar(
+                    x=dis_names,
+                    y=natural_dis
+                )
+            ],
+
+            'layout': {
+                'title': 'Comparing natural disaster messages',
+                'yaxis': {
+                    'title': "Messages count"
+                },
+                'xaxis': {
+                    'title': "Natural disaster"
                 }
             }
         }
