@@ -118,6 +118,25 @@ def evaluate_model(model, X_test, Y_test, category_names):
         print('\n')
 
 
+def gridSearch(model, X_train, y_train):
+    """
+    Searching for best parameters for the KNN model
+    
+    Args:
+    model: sklearn pipeline - trained model
+    X_train: pandas dataframe - train features
+    y_train: pandas dataframe - train labels
+    Returns:
+    best params
+    
+    """
+    parameters = {
+    'KNN__estimator__n_neighbors': [5,7,10]}
+
+    cv = GridSearchCV(model, parameters)
+    grid_search = cv.fit(X_train, y_train)
+    return grid_search.best_params_
+
 def save_model(model, model_filepath):
     """
     Save the trained model as a pickle file.
@@ -149,6 +168,9 @@ def main():
         
         print('Training model...')
         model.fit(X_train, Y_train)
+
+        print('Tunning the model...')
+        print(gridSearch(model, X_train, Y_train))
         
         print('Evaluating model...')
         evaluate_model(model, X_test, Y_test, category_names)
