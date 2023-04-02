@@ -17,7 +17,7 @@ This reposiroty contains all files for Disaster Response Pipeline. There are 3 s
 - Web application
 
 In the fisrt section (ETL pipeline) the data was prepared and merged and duplicates were removed then it was loaded in sql format. 
-After that, ML pipeline was prepared which involved cleaning data, tokenaization, model selection and training, building a pipeline, then saving the trained model. Finally, to visulaze the daataset I've used the template provided by udacity to create graph using Plotly and to to classify messages based on the model I trained. 
+After that, ML pipeline was prepared which involved cleaning data, tokenaization, model selection and training, building a pipeline, then saving the trained model. Finally, to visualize the dataset I've used the template provided by udacity to create graph using Plotly and to to classify messages based on the model I trained. 
 
 <h3> Sample tests of the project: </h3>
 
